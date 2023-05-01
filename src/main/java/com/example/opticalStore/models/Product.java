@@ -10,7 +10,7 @@ import lombok.extern.apachecommons.CommonsLog;
 @AllArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long Id;
     @Column(name = "title")
@@ -21,7 +21,21 @@ public class Product {
     private int price;
     @Column(name = "category")
     private String category;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    private Image image;
 
-    public Product(){}
+    public Product() {
+    }
 
+    public Product(String title, String description, int price, String category) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+
+    public void addImageToProduct(Image image) {
+        image.setProduct(this);
+        this.image = image;
+    }
 }
