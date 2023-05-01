@@ -11,6 +11,11 @@ ${product.title} <br><br>
 ${product.description} <br><br>
 <form action="/product/delete/${product.id}" method="post">
     <input type="submit" value="удалить"/>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+</form>
+<form action="/logout" method="post">
+    <input type="submit" value="Sign Out"/>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
 </form>
 
 </body>

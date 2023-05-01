@@ -25,5 +25,10 @@
     фото <input type="file" name="file"/><br><br>
     <input type="submit" value="добавить"/>
 </form>
+<br><br><br>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <input type="submit" value="Sign Out"/>
+</form>
 </body>
 </html>
