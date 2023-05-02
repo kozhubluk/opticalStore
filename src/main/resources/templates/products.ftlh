@@ -16,16 +16,6 @@
     <#else>
     <h3>товаров нет</h3>
 </#list>
-<h2>Создать товар</h2>
-<form action="/product/create" method="post" enctype="multipart/form-data">
-    название: <input type="text" name="title"/><br><br>
-    описание: <input type="text" name="description"/><br><br>
-    цена: <input type="number" name="price"/><br><br>
-    категория: <input type="text" name="category"/><br><br>
-    фото <input type="file" name="file"/><br><br>
-    <input type="submit" value="добавить"/>
-</form>
-<br><br><br>
 <form action="/logout" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Sign Out"/>
