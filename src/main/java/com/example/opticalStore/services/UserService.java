@@ -4,8 +4,11 @@ import com.example.opticalStore.models.Role;
 import com.example.opticalStore.models.User;
 import com.example.opticalStore.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -40,5 +43,10 @@ public class UserService {
         }
 
         userRepository.save(user);
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) return new User();
+        return userRepository.findByUsername(principal.getName());
     }
 }

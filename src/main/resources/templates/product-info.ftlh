@@ -6,16 +6,12 @@
 </head>
 <body>
 
-<img src="/images/${product.image.id}" height="600px" weight="600px"/><br><br>
-${product.title} <br><br>
-${product.description} <br><br>
-<form action="/product/delete/${product.id}" method="post">
-    <input type="submit" value="удалить"/>
+
+<form action="/cart/add/" method="post">
+    кол-во <input type="number" name="quantity">
+    <input type="hidden"  value="${product.id}" name="productId" >
     <input type="hidden" name="_csrf" value="${_csrf.token}">
-</form>
-<form action="/logout" method="post">
-    <input type="submit" value="Sign Out"/>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <button type="submit">Save</button>
 </form>
 
 </body>
