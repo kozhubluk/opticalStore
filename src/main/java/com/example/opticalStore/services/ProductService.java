@@ -3,6 +3,7 @@ package com.example.opticalStore.services;
 import com.example.opticalStore.models.Image;
 import com.example.opticalStore.models.Product;
 import com.example.opticalStore.models.User;
+import com.example.opticalStore.repositories.ImageRepository;
 import com.example.opticalStore.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
@@ -43,13 +45,23 @@ public class ProductService {
             image = toImageEntity(file);
             product.addImageToProduct(image);
         }
-        log.info("Product is saved. ID: {}, title: {}", product.getId(), product.getTitle());
         productRepository.save(product);
+        log.info("Product is saved. ID: {}", product.getId());
     }
 
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return new User();
         return userRepository.findByUsername(principal.getName());
+    }
+
+    public void updateProduct(String title, String description, int price,
+                              String category,
+                              Product product) {
+        product.setTitle(title);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setCategory(category);
+        productRepository.save(product);
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {
@@ -61,4 +73,6 @@ public class ProductService {
         image.setBytes(file.getBytes());
         return image;
     }
+
+
 }

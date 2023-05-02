@@ -14,6 +14,7 @@
         <th>Название</th>
         <th>ID</th>
         <th>Категория</th>
+        <th>Цена</th>
         <th></th>
     </tr>
     </thead>
@@ -23,6 +24,7 @@
             <td>${product.title}</td>
             <td>${product.id}</td>
             <td>${product.category}</td>
+            <td>${product.price}</td>
             <td><a href="/product/list/${product.id}">edit</a></td>
         </tr>
     </#list>

@@ -18,6 +18,7 @@ import com.example.opticalStore.models.Image;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -70,5 +71,17 @@ public class ProductController {
     public String userEditForm(@PathVariable Product product, Model model) {
         model.addAttribute("product", product);
         return "product-edit";
+    }
+
+    @PostMapping("/product/edit")
+    public String userSave(
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam int price,
+            @RequestParam String category,
+            @RequestParam("productId") Product product)  {
+       productService.updateProduct(title, description, price, category, product);
+
+        return "redirect:/product/list";
     }
 }

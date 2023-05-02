@@ -9,18 +9,16 @@
 </head>
 <body>
 <h2>Создать товар</h2>
+<#assign categories = ['Солнцезащитные очки', 'Очки для чтения', 'Очки для компьютера', 'Линзы', 'Офисные очки', 'Аксессуары для очков']>
 <form action="/product/create" method="post" enctype="multipart/form-data">
     название: <input type="text" name="title"/><br><br>
     описание: <input type="text" name="description"/><br><br>
     цена: <input type="number" name="price"/><br><br>
     фото <input type="file" name="file"/><br><br>
     <select name="category">
-        <option value="Очки для чтения">Очки для чтения</option>
-        <option value="Солнцезащитные очки">Солнцезащитные очки</option>
-        <option value="Линзы">Линзы</option>
-        <option value="Офисные очки">Офисные очки</option>
-        <option value="Очки для компьютера">Очки для компьютера</option>
-        <option value="Аксессуары для очков">Аксессуары для очков</option>
+        <#list categories as category>
+            <option value="${category}">${category}</option>
+        </#list>
     </select>
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="добавить"/>
