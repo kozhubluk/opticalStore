@@ -1,6 +1,8 @@
 package com.example.opticalStore.controllers;
 
 import com.example.opticalStore.models.Product;
+import com.example.opticalStore.models.Role;
+import com.example.opticalStore.models.User;
 import com.example.opticalStore.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.opticalStore.models.Image;
 
 import java.io.IOException;
+import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,8 +25,10 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String products(@RequestParam(name = "title", required = false) String title, Model model) {
+    public String products(@RequestParam(name = "title", required = false) String title,
+                           Principal principal, Model model) {
         model.addAttribute("products", productService.listProducts(title));
+        model.addAttribute("user", productService.getUserByPrincipal(principal));
         return "products";
     }
 
@@ -51,5 +56,19 @@ public class ProductController {
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/product/list")
+    public String listProduct(@RequestParam(name = "title", required = false) String title,
+                              Model model) {
+        model.addAttribute("products", productService.listProducts(title));
+        return "product-list";
+    }
+
+    @GetMapping("/product/list/{product}")
+    public String userEditForm(@PathVariable Product product, Model model) {
+        model.addAttribute("product", product);
+        return "product-edit";
     }
 }

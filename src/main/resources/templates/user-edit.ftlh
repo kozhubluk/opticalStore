@@ -8,7 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="/user" method="post">
+<form action="/admin/users/edit" method="post">
     <input type="text" name="username" value="${user.username}">
     <#list roles as role>
         <div>

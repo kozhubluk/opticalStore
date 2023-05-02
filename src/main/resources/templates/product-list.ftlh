@@ -11,17 +11,19 @@
 <table>
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Role</th>
+        <th>Название</th>
+        <th>ID</th>
+        <th>Категория</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    <#list users as user>
+    <#list products as product>
         <tr>
-            <td>${user.username}</td>
-            <td><#list user.roles as role>${role}<#sep>, </#list></td>
-            <td><a href="/admin/users/${user.id}">edit</a></td>
+            <td>${product.title}</td>
+            <td>${product.id}</td>
+            <td>${product.category}</td>
+            <td><a href="/product/list/${product.id}">edit</a></td>
         </tr>
     </#list>
     </tbody>
