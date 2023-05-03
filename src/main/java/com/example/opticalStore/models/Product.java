@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.apachecommons.CommonsLog;
 
+import java.util.List;
+
 @Entity
 @Table(name = "products")
 @Data
@@ -23,6 +25,9 @@ public class Product {
     private String category;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private Image image;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    List<CartItem> cartItemList;
 
     public Product() {
     }

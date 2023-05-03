@@ -34,6 +34,8 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<CartItem> cartItemList;
 
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);

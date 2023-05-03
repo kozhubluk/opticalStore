@@ -11,7 +11,12 @@
 <#list cartItems as cartItem>
     <div>
         ${cartItem.product.title}<br>
-        ${cartItem.quantity}
+        ${cartItem.quantity}<br>
+
+        <form action="/cart/delete/${cartItem.product.id}" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}">
+            <input type="submit" value="Удалить товар"/>
+        </form>
     </div>
 </#list>
 </body>

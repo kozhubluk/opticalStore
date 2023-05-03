@@ -2,7 +2,6 @@ package com.example.opticalStore.controllers;
 
 import com.example.opticalStore.models.Role;
 import com.example.opticalStore.models.User;
-import com.example.opticalStore.repositories.UserRepository;
 import com.example.opticalStore.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,10 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor

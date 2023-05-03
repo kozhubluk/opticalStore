@@ -33,8 +33,10 @@ public class ProductController {
         return "products";
     }
 
+
     @GetMapping("/product/{id}")
-    public String productInfo(@PathVariable Long id, Model model) {
+    public String productInfo(@PathVariable Long id, Model model, Principal principal) {
+        model.addAttribute("user", productService.getUserByPrincipal(principal));
         model.addAttribute("product", productService.getProductById(id));
         return "product-info";
     }

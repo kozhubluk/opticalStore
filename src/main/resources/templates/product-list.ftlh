@@ -20,12 +20,14 @@
     </thead>
     <tbody>
     <#list products as product>
+
+        <img src="/images/${product.image.id}" height="600px" weight="600px"/><br><br>
         <tr>
             <td>${product.title}</td>
             <td>${product.id}</td>
             <td>${product.category}</td>
             <td>${product.price}</td>
-            <td><a href="/product/list/${product.id}">edit</a></td>
+            <td><a href="/product/list/${product.id?c}">edit</a></td>
         </tr>
     </#list>
     </tbody>

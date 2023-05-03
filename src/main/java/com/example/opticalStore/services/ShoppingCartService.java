@@ -44,7 +44,14 @@ public class ShoppingCartService {
         return addedQuantity;
     }
 
-    public void deleteItem(Long id) {
-        cartItemRepository.deleteById(id);
+    public void deleteItem(User user,  Product product) {
+        CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product);
+        cartItemRepository.delete(cartItem);
+    }
+
+    public void setNewQuantity(User user, Product product, int quantity) {
+        CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product);
+        cartItem.setQuantity(quantity);
+        cartItemRepository.save(cartItem);
     }
 }

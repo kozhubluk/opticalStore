@@ -1,5 +1,6 @@
 package com.example.opticalStore.controllers;
 
+import com.example.opticalStore.models.CartItem;
 import com.example.opticalStore.models.Product;
 import com.example.opticalStore.models.User;
 import com.example.opticalStore.services.ShoppingCartService;
@@ -24,18 +25,5 @@ public class ShoppingCartRestController {
     @Autowired
     private final UserService userService;
 
-    @PostMapping("/cart/add/")
-    public void addProductToCart(@RequestParam("productId") Product productId,
-                                   @RequestParam("quantity") int quantity,
-                                   Principal principal) {
-        User user = userService.getUserByPrincipal(principal);
-        shoppingCartService.addProduct(productId, quantity, user);
-    }
 
-
-    @PostMapping("/cart/delete/{id}")
-    public String deleteProductFromCart(@PathVariable Long id) {
-        shoppingCartService.deleteItem(id);
-        return "redirect:/cart";
-    }
 }
