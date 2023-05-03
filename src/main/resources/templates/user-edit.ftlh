@@ -1,23 +1,38 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<form action="/admin/users/edit" method="post">
-    <input type="text" name="username" value="${user.username}">
-    <#list roles as role>
-        <div>
-            <label><input type="checkbox" name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}</label>
+<#import "common/admin.ftlh" as c>
+
+<@c.admin>
+    <style type="text/css">
+        body {
+            background-color: RGB(248, 249, 250);
+        }
+    </style>
+    <form action="/admin/users/edit" method="post"
+          style="max-width: 400px; padding: 12px; margin: auto; margin-top: 20px; border-radius: 12px;
+             padding-top: 20px; background-color: white" ;>
+        <!-- Email input -->
+
+        <div class="form-outline mb-4">
+            <input type="text" id="username" class="form-control" name="username" value="${user.username}"/>
+            <label class="form-label" for="username">Email address</label>
         </div>
-    </#list>
-    <input type="hidden" value="${user.id}" name="userId">
-    <input type="hidden" value="${_csrf.token}" name="_csrf">
-    <button type="submit">Save</button>
-</form>
-</body>
-</html>
+        <div class="row mb-4">
+            <#list roles as role>
+                <div class="col d-flex justify-content-center">
+                    <!-- Checkbox -->
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="${role}"
+                               name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>
+                        <label class="form-check-label" for="${role}">${role}</label>
+                    </div>
+                </div>
+            </#list>
+        </div>
+        <input type="hidden" value="${user.id}" name="userId">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <!-- Submit button -->
+        <div style="margin: auto; width: fit-content">
+            <input type="submit" value="Save" class="btn btn-primary">
+        </div>
+    </form>
+
+</@c.admin>

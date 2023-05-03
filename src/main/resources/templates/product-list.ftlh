@@ -1,36 +1,27 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>Название</th>
-        <th>ID</th>
-        <th>Категория</th>
-        <th>Цена</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <#list products as product>
+<#import "common/admin.ftlh" as c>
+<#import "common/navbar.ftlh" as nav>
 
-        <img src="/images/${product.image.id}" height="600px" weight="600px"/><br><br>
+<@c.admin>
+    <table class="table" style="width: 100%;   ">
+        <thead class="thead-dark" style="border-radius: 12px">
         <tr>
-            <td>${product.title}</td>
-            <td>${product.id}</td>
-            <td>${product.category}</td>
-            <td>${product.price}</td>
-            <td><a href="/product/list/${product.id?c}">edit</a></td>
+            <th scope="col">Title</th>
+            <th scope="col">ID</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
         </tr>
-    </#list>
-    </tbody>
-</table>
-</body>
-</html>
+        </thead>
+        <tbody>
+        <#list products as product>
+            <tr>
+                <td>${product.title}</td>
+                <td>${product.id}</td>
+                <td>${product.category}</td>
+                <td>${product.price}</td>
+                <td><a class="btn btn-primary" role="button" href="/product/list/${product.id?c}">edit</a></td>
+            </tr>
+        </#list>
+        </tbody>
+    </table>
+</@c.admin>

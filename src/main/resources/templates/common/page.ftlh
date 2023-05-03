@@ -19,7 +19,7 @@
             <#nested>
         </div>
     </div>
-    <footer class="bg-light text-center text-lg-start">
+    <footer class="bg-light text-center text-lg-start" style="margin-top: 250px">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgb(248,249,250);">
             Avdeeva A.D. ikbo-01-21

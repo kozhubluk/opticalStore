@@ -6,7 +6,7 @@
 <@nav.nav>
 </@nav.nav>
 
-    <div style="max-width: 1300px; margin: auto; padding: 10px;">
+    <div style="width: 96%; margin: auto; padding: 10px;">
 
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -14,7 +14,7 @@
         </form>
         <div class="list" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
             <#list products as product>
-                <div class="card" style="width: 18rem; margin-top: 10px; margin-right: 10px; padding-bottom: 40px;">
+                <div class="card" style="width: 16rem;  margin-top: 10px; margin-right: 10px; padding-bottom: 40px;">
                     <img src="/images/${product.image.id?c}" class="card-img-top" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">${product.title}</h5>

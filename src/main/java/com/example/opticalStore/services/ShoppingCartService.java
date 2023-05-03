@@ -54,4 +54,8 @@ public class ShoppingCartService {
         cartItem.setQuantity(quantity);
         cartItemRepository.save(cartItem);
     }
+
+    public void clearCart(User user) {
+        cartItemRepository.deleteAllByUser(user);
+    }
 }

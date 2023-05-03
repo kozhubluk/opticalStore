@@ -1,17 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>BUYSELL</title>
-</head>
-<body>
-<h1>BUYSELL</h1><hr>
-<h4>Регистрация</h4>
-<form action="/registration" method="post">
-    Имя пользователя: <input type="text" name="username"><br><br>
-    Пароль: <input type="password" name="password"><br><br>
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Вход"/>
-</form>
+<#import "common/page.ftlh" as c>
+<#import "common/navbar.ftlh" as nav>
 
-</body>
-</html>
+<@c.page>
+<style type="text/css">
+    body {
+        background-color: RGB(248, 249, 250);
+    }
+</style>
+<form action="/registration" method="post"
+      style="max-width: 400px; padding: 12px; margin: auto; margin-top: 20px; border-radius: 12px;
+            padding-top: 20px; background-color: white" ;
+>
+    <!-- Email input -->
+
+    <div class="form-outline mb-4">
+        <input type="text" id="username" class="form-control" name="username"/>
+        <label class="form-label" for="username">Username</label>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+        <input type="password" id="password" class="form-control" name="password"/>
+        <label class="form-label" for="password">Password</label>
+    </div>
+
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <!-- Submit button -->
+    <div style="margin: auto; width: fit-content">
+        <input type="submit" value="Sign up" class="btn btn-primary">
+        <a type="button" class="btn btn-secondary" href="/"
+           style="color:white; margin: auto; margin-left: 6px;">Main page</a>
+        <div class="text-center" style="margin-top: 6px">
+            <p>Already registered? <a href="/login">Log in</a></p>
+        </div>
+    </div>
+
+</form>
+</@c.page>
+<!-- Register buttons -->
+
+
+

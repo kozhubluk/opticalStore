@@ -62,4 +62,11 @@ public class ShoppingCartController {
 
         return "redirect:/cart";
     }
+
+    @PostMapping("/cart/clear")
+    public String clearCart(Principal principal) {
+        User user = userService.getUserByPrincipal(principal);
+        shoppingCartService.clearCart(user);
+        return "redirect:/";
+    }
 }
