@@ -8,7 +8,7 @@
 -webkit-box-shadow: 1px 0px 14px -4px rgba(70, 81, 90, 0.11);
 -moz-box-shadow: 1px 0px 14px -4px rgba(70, 81, 90, 0.11);
 box-shadow: 1px 0px 14px -4px rgba(70, 81, 90, 0.11); border-radius: 15px">
-        <form action="/product/edit" method="post" id="change">
+        <form action="/product/edit" method="post" id="change" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="${product.title}" required>
@@ -30,6 +30,10 @@ box-shadow: 1px 0px 14px -4px rgba(70, 81, 90, 0.11); border-radius: 15px">
                         <option value="${category}" <#if (category == product.category)> selected="selected"</#if>>${category}</option>
                     </#list>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="file">Update image</label>
+                <input type="file" id="file" name="file">
             </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}">
             <input type="hidden" name="productId" value="${product.id?c}">

@@ -29,9 +29,9 @@ public class ProductService {
         return productRepository.findById(id).orElse(null);
     }
 
-    public List<Product> listProducts(String title) {
-        if (title != null) return productRepository.findByTitle(title);
-        return productRepository.findAll();
+    public List<Product> listProducts(String category) {
+        if (category == null || category.isEmpty()) return productRepository.findAll();
+        return productRepository.findAllByCategory(category);
     }
 
 
@@ -54,14 +54,26 @@ public class ProductService {
         return userRepository.findByUsername(principal.getName());
     }
 
-    public void updateProduct(String title, String description, int price,
+    public void updateProduct(MultipartFile file, String title, String description, int price,
                               String category,
-                              Product product) {
+                              Product product) throws IOException {
+        if (file != null) setNewImage(product, file);
         product.setTitle(title);
         product.setDescription(description);
         product.setPrice(price);
         product.setCategory(category);
         productRepository.save(product);
+    }
+
+    private void setNewImage(Product product, MultipartFile file) throws IOException {
+        if (file.getSize() != 0) {
+            Image image = imageRepository.findImageByProduct(product);
+            image.setName(file.getName());
+            image.setOriginalFileName(file.getOriginalFilename());
+            image.setContentType(file.getContentType());
+            image.setSize(file.getSize());
+            image.setBytes(file.getBytes());
+        }
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {

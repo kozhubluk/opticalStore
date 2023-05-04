@@ -26,13 +26,13 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/")
-    public String products(@RequestParam(name = "title", required = false) String title,
+    public String products(@RequestParam(name = "category", required = false) String category,
                            Principal principal, Model model) {
-        model.addAttribute("products", productService.listProducts(title));
+        model.addAttribute("products", productService.listProducts(category));
         model.addAttribute("user", productService.getUserByPrincipal(principal));
+        model.addAttribute("category", category);
         return "products";
     }
-
 
     @GetMapping("/product/{id}")
     public String productInfo(@PathVariable Long id, Model model, Principal principal) {
@@ -43,7 +43,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/product/new")
-    public String formProduct(){
+    public String formProduct() {
         return "product-form";
     }
 
@@ -76,13 +76,13 @@ public class ProductController {
     }
 
     @PostMapping("/product/edit")
-    public String userSave(
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam int price,
-            @RequestParam String category,
-            @RequestParam("productId") Product product)  {
-       productService.updateProduct(title, description, price, category, product);
+    public String userSave(@RequestParam String title,
+                           @RequestParam String description,
+                           @RequestParam int price,
+                           @RequestParam String category,
+                           @RequestParam(name="file", required = false) MultipartFile file,
+                           @RequestParam("productId") Product product) throws IOException {
+        productService.updateProduct(file, title, description, price, category, product);
 
         return "redirect:/product/list";
     }

@@ -43,4 +43,8 @@ public class Product {
         image.setProduct(this);
         this.image = image;
     }
+
+    public void updateImage(Image image) {
+
+    }
 }
