@@ -31,7 +31,7 @@ public class ShoppingCartController {
         User user = userService.getUserByPrincipal(principal);
         List<CartItem> cartItems = shoppingCartService.listCartItems(user);
         model.addAttribute("cartItems", cartItems);
-        model.addAttribute("pageTitle", "ShoppingCart");
+        model.addAttribute("user", user);
 
         return "/shopping_cart";
     }
@@ -58,6 +58,7 @@ public class ShoppingCartController {
     public String deleteProductFromCart(@PathVariable Product product,
                                         Principal principal) {
         User user = userService.getUserByPrincipal(principal);
+        System.out.println(user.getUsername() + " " + product.getTitle() + product.getId());
         shoppingCartService.deleteItem(user, product);
 
         return "redirect:/cart";
