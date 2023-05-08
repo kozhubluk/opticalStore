@@ -37,6 +37,19 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<CartItem> cartItemList;
 
+    public User(String username, Boolean active, Set<Role> roles) {
+        this.username = username;
+        this.active = active;
+        this.roles = roles;
+    }
+
+    public User(String username, String password, Boolean active, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.active = active;
+        this.roles = roles;
+    }
+
     public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }

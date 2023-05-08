@@ -4,6 +4,7 @@ import com.example.opticalStore.models.Product;
 import com.example.opticalStore.models.Role;
 import com.example.opticalStore.models.User;
 import com.example.opticalStore.services.ProductService;
+import com.example.opticalStore.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,19 +25,20 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final UserService userService;
 
     @GetMapping("/")
     public String products(@RequestParam(name = "category", required = false) String category,
                            Principal principal, Model model) {
         model.addAttribute("products", productService.listProducts(category));
-        model.addAttribute("user", productService.getUserByPrincipal(principal));
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         model.addAttribute("category", category);
         return "products";
     }
 
     @GetMapping("/product/{id}")
     public String productInfo(@PathVariable Long id, Model model, Principal principal) {
-        model.addAttribute("user", productService.getUserByPrincipal(principal));
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         model.addAttribute("product", productService.getProductById(id));
         return "product-info";
     }

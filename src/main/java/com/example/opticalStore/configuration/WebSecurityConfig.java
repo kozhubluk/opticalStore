@@ -13,10 +13,10 @@ import com.example.opticalStore.services.CustomUserDetailsService;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-public class SecurityConfig {
+public class WebSecurityConfig {
     private final CustomUserDetailsService userDetailsService;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    public WebSecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
     @Bean

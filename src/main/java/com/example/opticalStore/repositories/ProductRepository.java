@@ -11,4 +11,6 @@ import static org.springframework.http.HttpHeaders.FROM;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByTitle(String title);
     List<Product> findAllByCategory(String category);
+
+    Boolean existsByTitle(String title);
 }

@@ -13,7 +13,7 @@
 
         <div class="form-outline mb-4">
             <input type="text" id="username" class="form-control" name="username" value="${user.username}"/>
-            <label class="form-label" for="username">Email address</label>
+            <label class="form-label" for="username">Username</label>
         </div>
         <div class="row mb-4">
             <#list roles as role>
@@ -21,7 +21,8 @@
                     <!-- Checkbox -->
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="${role}"
-                               name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>
+                               name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}
+                                <#if role == "USER"> onchange="document.getElementById('submit').disabled = !this.checked;" </#if>>
                         <label class="form-check-label" for="${role}">${role}</label>
                     </div>
                 </div>
@@ -31,7 +32,7 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <!-- Submit button -->
         <div style="margin: auto; width: fit-content">
-            <input type="submit" value="Save" class="btn btn-primary">
+            <input type="submit" id="submit" value="Save" class="btn btn-primary">
         </div>
     </form>
 

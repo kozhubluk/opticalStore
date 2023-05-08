@@ -28,14 +28,13 @@ public class UserService {
     }
 
     public void userEdit(String username, Map<String, String> form, User user) {
-        user.setUsername(username);
-
+        if (userRepository.findByUsername(username) == null) user.setUsername(username);
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
 
-        user.getRoles().clear();
 
+        user.getRoles().clear();
         for (String key : form.keySet()) {
             if (roles.contains(key)) {
                 user.getRoles().add(Role.valueOf(key));

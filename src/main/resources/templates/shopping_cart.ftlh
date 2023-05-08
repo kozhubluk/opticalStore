@@ -7,11 +7,60 @@
     </@nav.nav>
 
     <div style="width: 96%; margin: auto; padding: 10px;">
+        <#if cartItems?has_content>
+            <div style="display: flex; justify-content: center; column-gap: 6px; flex-wrap: wrap;">
+                <form action="/cart/clear" method="post" class="form-inline my-2 my-lg-0">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                    <button class="btn btn-danger" type="submit" style="width: fit-content; margin: auto">Clear shopping
+                        cart
+                    </button>
+                </form>
+                <form class="form-inline my-2 my-lg-0">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" style="width: fit-content; margin: auto">Order</button>
+                </form>
+            </div>
 
-        <form action="/cart/clear" method="post" class="form-inline my-2 my-lg-0">
-            <input type="hidden" name="_csrf" value="${_csrf.token}">
-            <button class="btn btn-danger" type="submit" style="width: fit-content; margin: auto">Clear shopping cart</button>
-        </form>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Create an order</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="cart/order">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email address</label>
+                                    <input  type="email" required class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Delivery address</label>
+                                    <input type="text" required class="form-control" id="address" name="address">
+                                </div>
+                                <div class="mb-3">
+                                    <select  class="form-select" aria-label="Time selection" name="time">
+                                        <option value="09:00-12:00">09:00-12:00</option>
+                                        <option value="12:00-14:00">12:00-14:00</option>
+                                        <option value="14:00-16:00">14:00-16:00</option>
+                                        <option value="16:00-18:00">16:00-18:00</option>
+                                    </select>
+                                </div>
+                                <input type="hidden" name="_csrf" value="${_csrf.token}">
+                                <button type="submit" class="btn btn-primary">Order</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+
+        </#if>
+
         <div class="list" style="display: flex; flex-wrap: wrap; justify-content: center">
             <#list cartItems as item>
                 <div class="card" style="width: 16rem;  margin-top: 10px; margin-right: 10px; padding-bottom: 75px;">
@@ -44,7 +93,9 @@
                     </div>
                 </div>
             <#else>
-                <h3>Products not found :(</h3>
+                <h3>
+                    Your shopping cart is empty
+                </h3>
             </#list>
         </div>
     </div>

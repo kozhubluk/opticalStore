@@ -1,11 +1,15 @@
 package com.example.opticalStore.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "cart_item")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,4 +22,15 @@ public class CartItem {
     private User user;
     private int quantity;
 
+    public CartItem(Product product, User user, int quantity) {
+        this.product = product;
+        this.user = user;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return product.getTitle() +
+                " quantity=" + quantity;
+    }
 }

@@ -1,8 +1,10 @@
 package com.example.opticalStore.controllers;
 
 import com.example.opticalStore.models.CartItem;
+import com.example.opticalStore.models.Order;
 import com.example.opticalStore.models.Product;
 import com.example.opticalStore.models.User;
+import com.example.opticalStore.services.EmailService;
 import com.example.opticalStore.services.ShoppingCartService;
 import com.example.opticalStore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class ShoppingCartController {
     private ShoppingCartService shoppingCartService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/cart")
     public String showShoppingCart(Model model,
@@ -38,8 +42,8 @@ public class ShoppingCartController {
 
     @PostMapping("/cart/add/")
     public String addProductToCart(@RequestParam("productId") Product productId,
-                                 @RequestParam("quantity") int quantity,
-                                 Principal principal) {
+                                   @RequestParam("quantity") int quantity,
+                                   Principal principal) {
         User user = userService.getUserByPrincipal(principal);
         shoppingCartService.addProduct(productId, quantity, user);
         return "redirect:/";
@@ -47,8 +51,8 @@ public class ShoppingCartController {
 
     @PostMapping("/cart/set-quantity")
     public String setItemQuantity(@RequestParam("productId") Product productId,
-                                @RequestParam("quantity") int quantity,
-                                Principal principal) {
+                                  @RequestParam("quantity") int quantity,
+                                  Principal principal) {
         User user = userService.getUserByPrincipal(principal);
         shoppingCartService.setNewQuantity(user, productId, quantity);
         return "redirect:/cart";
@@ -58,7 +62,6 @@ public class ShoppingCartController {
     public String deleteProductFromCart(@PathVariable Product product,
                                         Principal principal) {
         User user = userService.getUserByPrincipal(principal);
-        System.out.println(user.getUsername() + " " + product.getTitle() + product.getId());
         shoppingCartService.deleteItem(user, product);
 
         return "redirect:/cart";
@@ -69,5 +72,18 @@ public class ShoppingCartController {
         User user = userService.getUserByPrincipal(principal);
         shoppingCartService.clearCart(user);
         return "redirect:/";
+    }
+
+    @PostMapping("cart/order")
+    public String createOrder(Principal principal, @RequestParam(name="email") String email,
+                              @RequestParam(name="address") String address,
+                              @RequestParam(name="time") String time) {
+        User user = userService.getUserByPrincipal(principal);
+        List<CartItem> items = shoppingCartService.listCartItems(user);
+        System.out.println(email+address+ time);
+        Order order = new Order(items, email, address, time);
+        emailService.sendNotification(order);
+        shoppingCartService.clearCart(user);
+        return "redirect:/cart";
     }
 }
